@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica Alemana</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .hero {
+            background: url('hero-image.jpg') center/cover no-repeat;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+        .hero h1 {
+            font-size: 3rem;
+        }
+        footer {
+            background: #343a40;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-light border-bottom">
+        <div class="container d-flex justify-content-between align-items-center py-3">
+            <h1>Clínica Alemana</h1>
+            <nav>
+                <a href="#" class="text-dark mx-2">Inicio</a>
+                <a href="#services" class="text-dark mx-2">Servicios</a>
+                <a href="#team" class="text-dark mx-2">Equipo Médico</a>
+                <a href="#contact" class="text-dark mx-2">Contacto</a>
+                <button class="btn btn-primary" id="login-button">Iniciar Sesión</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Tu Salud, Nuestra Prioridad</h1>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="container py-5">
+        <h2 class="text-center mb-4">Nuestros Servicios</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <h4>Medicina General</h4>
+                <p>Consulta con especialistas para mantenerte saludable.</p>
+            </div>
+            <div class="col-md-4">
+                <h4>Urgencias</h4>
+                <p>Atención inmediata para emergencias médicas.</p>
+            </div>
+            <div class="col-md-4">
+                <h4>Laboratorio Clínico</h4>
+                <p>Resultados rápidos y precisos para tus análisis.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Nuestro Equipo Médico</h2>
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <img src="doctor1.jpg" alt="Doctor 1" class="rounded-circle" width="150">
+                    <h5>Dr. Juan Pérez</h5>
+                    <p>Especialista en Cardiología</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <img src="doctor2.jpg" alt="Doctor 2" class="rounded-circle" width="150">
+                    <h5>Dra. María López</h5>
+                    <p>Especialista en Pediatría</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <img src="doctor3.jpg" alt="Doctor 3" class="rounded-circle" width="150">
+                    <h5>Dr. Carlos Ramírez</h5>
+                    <p>Especialista en Dermatología</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="container py-5">
+        <h2 class="text-center mb-4">Contáctanos</h2>
+        <form>
+            <div class="mb-3">
+                <label for="name" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Correo Electrónico</label>
+                <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label">Mensaje</label>
+                <textarea class="form-control" id="message" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 Clínica Alemana. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Supabase Authentication Script -->
+    <script>
+        const supabaseUrl = "https://jdcxzbzjswoayompwguz.supabase.co";
+        const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpkY3h6Ynpqc3dvYXlvbXB3Z3V6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM3NTA3MjMsImV4cCI6MjA0OTMyNjcyM30.y5pL_NgeUR9MtgPi8245k8b0f1TEsTYrLamVSMP9jno";
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+        document.getElementById('login-button').addEventListener('click', async () => {
+            const { data, error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
+            if (error) {
+                alert('Error al iniciar sesión: ' + error.message);
+            } else {
+                alert('Inicio de sesión exitoso');
+            }
+        });
+    </script>
+</body>
+</html>
